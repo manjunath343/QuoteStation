@@ -159,7 +159,7 @@ export default function HomePage() {
         {filteredQuotes.map((q) => (
           <div key={q.quote_id} className="p-6 bg-white text-gray-900 rounded-lg shadow-lg border-l-4 border-yellow-400 transform hover:scale-105 transition duration-300">
             <p className="text-lg font-semibold cursor-pointer h-5" onClick={() => setSelectedQuote(q)}>
-              "{q.quote}"
+            &quot;{q.quote}&quot;
             </p>
             <p className="text-sm text-gray-600 mt-10">- {q.writer} ({q.category || (q.categories.join(','))})</p>
             <div className="flex items-center gap-4 mt-4">
