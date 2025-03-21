@@ -136,10 +136,10 @@ export default function HomePage() {
         <h1 className="text-4xl font-bold text-yellow-300">QuoteStation</h1>
         <div className="flex gap-4">
           <button onClick={() => setShowWritePopup(true)} className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md shadow-lg">
-            <FaPen /> Write Quote
+            <FaPen /> Write
           </button>
           <button className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-lg" onClick={()=> router.push("/admin-login")}>
-            <FaUserShield /> Admin Login
+            <FaUserShield /> Admin
           </button>
         </div>
       </header>
