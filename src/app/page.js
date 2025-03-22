@@ -123,6 +123,16 @@ export default function HomePage() {
       console.error("Error adding comment:", error);
     }
   };
+  const getcomments = async (quote) => {
+    try {
+      const res = await fetch(`/api/comments?quote_id=${quote.quote_id}`, { method: "GET" });
+      if (!res.ok) throw new Error("Failed to fetch comments");
+      const data = await res.json();
+      setSelectedQuote({ ...quote, comments: data });
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+  }
+}
 
   const filteredQuotes = quotes.filter(q =>
     q.quote.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -158,10 +168,10 @@ export default function HomePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredQuotes.map((q) => (
           <div key={q.quote_id} className="p-6 bg-white text-gray-900 rounded-lg shadow-lg border-l-4 border-yellow-400 transform hover:scale-105 transition duration-300">
-            <p className="text-lg font-semibold cursor-pointer h-5" onClick={() => setSelectedQuote(q)}>
+            <p className="text-lg font-semibold cursor-pointer" onClick={() => getcomments(q)}>
             &quot;{q.quote}&quot;
             </p>
-            <p className="text-sm text-gray-600 mt-10">- {q.writer} ({q.category || (q.categories.join(','))})</p>
+            <p className="text-sm text-gray-600 mt-2">- {q.writer} ({q.category || (q.categories.join(','))})</p>
             <div className="flex items-center gap-4 mt-4">
               <button 
                 onClick={() => handleLike(q.quote_id)} 
@@ -197,10 +207,11 @@ export default function HomePage() {
             <p className="text-sm text-gray-600 mt-2">- {selectedQuote.writer} ({selectedQuote.category})</p>
             <h3 className="mt-4 font-semibold">Comments:</h3>
             <ul className="mt-2 text-sm text-gray-700 max-h-40 overflow-y-auto">
-              {(selectedQuote.comments || []).map((comment, index) => (
-                <li key={index} className="border-b py-1">{comment}</li>
+              {(selectedQuote.comments || []).map((comment) => (
+                <li key={comment.comment_id} className="border-b py-1">{comment.comment}</li>  // ✅ Correct
               ))}
-            </ul>
+              </ul>
+
             <button onClick={() => setSelectedQuote(null)} className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg">Close</button>
           </div>
         </div>
